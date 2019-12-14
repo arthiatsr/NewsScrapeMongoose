@@ -29,8 +29,6 @@ app.post("/scrape", function(req, res) {
     //     .children("a")
     //     .attr("href");
 
-    // I coded for the newyork times but since my article collection has so much records, not using the below
-    console.log("hi")
 
     request("https://www.nytimes.com/section/us",function(err,response,html) {
     var $ = cheerio.load(html);
@@ -40,7 +38,6 @@ app.post("/scrape", function(req, res) {
         result.title = $(this).find("h2").text();
         result.desc = $(this).find("p").text();
         result.link = $(this).find("a").attr("href");
-        console.log(result);
 
 
         db.Article.create(result)
@@ -60,15 +57,15 @@ app.post("/scrape", function(req, res) {
 });
 
 app.get("/articles", function(req, res) {
-db.Article.find({})
-    .then(function(dbArticle) {
-    res.json(dbArticle);
-    console.log("%%%%%",dbArticle);
+    db.Article.find({})
+        .then(function(dbArticle) {
+        res.json(dbArticle);
+        console.log("%%%%%",dbArticle);
 
-    })
-    .catch(function(err) {
-    res.json(err);
-    });
+        })
+        .catch(function(err) {
+        res.json(err);
+        });
 });
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
